@@ -12,11 +12,11 @@ export const AppDataSource = new DataSource(
       }
     : {
         type: "postgres",
-        host: process.env.PGHOST,
+        host: process.env.HOST,
         port: parseInt(process.env.PGPORT!),
-        username: process.env.PGUSER,
-        password: process.env.PGPASSWORD,
-        database: process.env.PGDATABASE,
+        username: process.env.POSTGRES_USER,
+        password: process.env.POSTGRES_PASSWORD,
+        database: process.env.POSTGRES_DB,
         logging: true,
         synchronize: false,
         entities: [path.join(__dirname, "./entities/**.{js,ts}")],

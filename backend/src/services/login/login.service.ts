@@ -1,11 +1,15 @@
 import { compare } from "bcryptjs";
 import { AppDataSource } from "../../data-source";
-import { User } from "../../entity/user.entity";
-import { AppError } from "../../errors/appError";
+import { User } from "../../entities/user.entity";
 import jwt from "jsonwebtoken";
 import "dotenv/config";
+import { IUserLogin } from "../../interfaces/user";
+import AppError from "../../errors/appError";
 
-const loginUserService = async ({ email, password }): Promise<string> => {
+const loginUserService = async ({
+  email,
+  password,
+}: IUserLogin): Promise<string> => {
   const userRepository = AppDataSource.getRepository(User);
   const user = await userRepository.findOneBy({ email: email });
 
