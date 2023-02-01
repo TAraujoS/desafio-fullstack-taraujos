@@ -1,7 +1,7 @@
 import { hash } from "bcryptjs";
 import { AppDataSource } from "../../data-source";
 import { User } from "../../entities/user.entity";
-import { AppError } from "../../errors/appError";
+import AppError from "../../errors/appError";
 import { IUserUpdate } from "../../interfaces/user";
 
 const updateUserService = async (
