@@ -1,6 +1,13 @@
-import { createContext, ReactNode, useContext, useState } from "react";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import React from "react";
 import api from "../services/api";
 
 export interface IAuthProviderProps {
@@ -28,7 +35,7 @@ export interface IUserLogin {
 }
 
 interface IAuthContext {
-  user: IUser | null;
+  user: IUser;
   registerUser: (data: IUserRegister) => void;
   submitLogin: (data: IUserLogin) => void;
   logout: () => void;
@@ -37,19 +44,14 @@ interface IAuthContext {
 export const AuthContext = createContext({} as IAuthContext);
 
 const AuthProvider = ({ children }: IAuthProviderProps) => {
-  const [user, setUser] = useState<IUser | null>(null);
+  const [user, setUser] = useState<IUser>({} as IUser);
+  const tokenUser = localStorage.getItem("@fullstack:token");
 
   const navigate = useNavigate();
 
-  async function registerUser(data: IUserRegister): Promise<void> {
-    const register = {
-      name: data.name,
-      email: data.email,
-      password: data.password,
-      phone: data.phone,
-    };
-    await api
-      .post("/users", register)
+  const registerUser = (data: IUserRegister) => {
+    api
+      .post("/users", data)
       .then((response) => {
         console.log(response);
         toast.success("Cadastro realizado com sucesso!");
@@ -59,42 +61,50 @@ const AuthProvider = ({ children }: IAuthProviderProps) => {
         toast.error("Ops! Algo deu errado");
         console.log(err);
       });
-  }
+  };
 
-  async function submitLogin(data: IUserLogin): Promise<void> {
-    try {
-      const response = await api.post("/login", data);
-
-      const { user: userResponse, token } = response.data;
-
-      api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-      setUser(userResponse);
-
-      localStorage.setItem("@fullstack:token", token);
-
-      navigate("/dashboard", { replace: true });
-      toast.success("Login efetuado com sucesso!", {
-        autoClose: 2000,
+  const submitLogin = (data: IUserLogin) => {
+    api
+      .post("/login", data)
+      .then((response) => {
+        console.log(response);
+        window.localStorage.setItem("@fullstack:token", response.data.token);
+        toast.success("Login feito com sucesso!", { autoClose: 2000 });
+        navigate("/dashboard", { replace: true });
+      })
+      .catch((error) => {
+        toast.error("Email ou senha inválidos", {
+          autoClose: 2000,
+        });
+        console.log(error);
       });
-    } catch (error) {
-      toast.error("Email ou senha inválidos", {
-        autoClose: 2000,
-      });
-      console.log(error);
+  };
+
+  useEffect(() => {
+    if (tokenUser) {
+      api.defaults.headers.common.Authorization = `Bearer ${tokenUser}`;
+      api
+        .get(`/users/account`)
+        .then((response) => {
+          setUser(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      navigate("/login");
     }
-  }
+  }, [tokenUser]);
 
   const logout = (): void => {
-    setUser(null);
     localStorage.clear();
-    navigate("/");
+    navigate("/login");
     toast.success("Logout efetuado com sucesso!");
   };
 
   return (
     <AuthContext.Provider value={{ user, registerUser, submitLogin, logout }}>
-      {" "}
-      {children}{" "}
+      {children}
     </AuthContext.Provider>
   );
 };

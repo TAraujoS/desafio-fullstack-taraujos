@@ -59,8 +59,8 @@ function FormRegister() {
         />
         <Input
           type="text"
-          label="Contato"
           id="phone"
+          label="Contato"
           placeholder="Opção de contato"
           {...register("phone")}
           error={errors?.phone}
