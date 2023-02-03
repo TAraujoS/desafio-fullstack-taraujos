@@ -11,24 +11,13 @@ import { userSchema, userUpdateSchema } from "../schemas/user.schema";
 const userRoutes = Router();
 
 userRoutes.post("", validateSchemaMiddleware(userSchema), createUserController);
-userRoutes.get(
-  "/:id",
-  ensureAuthMiddleware,
-  verifyUserIdMiddleware,
-  listUserController
-);
+userRoutes.get("/account", ensureAuthMiddleware, listUserController);
 userRoutes.patch(
-  "/:id",
+  "/account",
   ensureAuthMiddleware,
-  verifyUserIdMiddleware,
   validateSchemaMiddleware(userUpdateSchema),
   updateUserController
 );
-userRoutes.delete(
-  "/:id",
-  ensureAuthMiddleware,
-  verifyUserIdMiddleware,
-  deleteUserController
-);
+userRoutes.delete("/account", ensureAuthMiddleware, deleteUserController);
 
 export default userRoutes;
