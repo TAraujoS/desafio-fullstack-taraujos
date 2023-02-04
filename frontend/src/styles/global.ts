@@ -14,9 +14,7 @@ const GlobalStyle = createGlobalStyle`
         --color-grayform: #212529;
         --color-whitetext:  #F8F9FA;
         --color-graydark: #868E96;
-        --color-grayinput: #343B41;
-        --color-pink: #FF577F;
-        --color-purple: #59323F;
+        --color-grayinput: #F8F9FA;
         --color-list: #121214;
         
         --grey-0: #F8F9FA;
@@ -27,6 +25,14 @@ const GlobalStyle = createGlobalStyle`
         width: 100vw;
         height: 100vh;
         font-family: 'Inter', sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #F8F9FA;
+    }
+
+    ul{
+        list-style: none;
     }
 `;
 

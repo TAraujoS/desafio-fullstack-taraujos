@@ -20,3 +20,15 @@ export const loginSchema = yup.object().shape({
   email: yup.string().required("E-mail obrigatório").email("E-mail inválido"),
   password: yup.string().required("Senha obrigatória"),
 });
+
+export const editUser = yup.object().shape({
+  name: yup.string(),
+  email: yup.string(),
+  phone: yup.string(),
+});
+
+export const registerContact = yup.object().shape({
+  name: yup.string().required("Nome obrigatório"),
+  email: yup.string().required("Email obrigatório").email("Email inválido"),
+  phone: yup.string().required("Contato obrigatório"),
+});
