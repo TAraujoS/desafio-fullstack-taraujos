@@ -4,7 +4,7 @@ import { IContact } from "../../interfaces/contact";
 import createContactService from "../../services/contact/createContact.service";
 
 const createContactController = async (req: Request, res: Response) => {
-  const id = req.params.id;
+  const id = req.user.id;
   const data: IContact = req.body;
 
   const contact = await createContactService(id, data);
