@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { AuthContext, IUserLogin, useAuth } from "../../context/AuthContext";
 import { loginSchema } from "../../schemas";
 import { Link } from "react-router-dom";
+import { Form, Section } from "./styles";
 
 const Login = () => {
   const {
@@ -22,43 +23,39 @@ const Login = () => {
   const onSubmit = handleSubmit(submitLogin, onError);
 
   return (
-    <section>
-      <div className="global-login-div">
-        <div className="modalLogin">
-          <h3>Login</h3>
+    <Section>
+      <h3>Login</h3>
 
-          <form onSubmit={onSubmit}>
-            <label htmlFor="email">
-              <input
-                type="email"
-                id="email"
-                placeholder="E-mail"
-                {...register("email")}
-              />
-            </label>
-            <span>{errors?.email?.message}</span>
+      <Form onSubmit={onSubmit}>
+        <label htmlFor="email">
+          <input
+            type="email"
+            id="email"
+            placeholder="E-mail"
+            {...register("email")}
+          />
+        </label>
+        <span>{errors?.email?.message}</span>
 
-            <label htmlFor="password">
-              <input
-                type="password"
-                id="password"
-                placeholder="Senha"
-                {...register("password")}
-              />
-            </label>
-            <span>{errors?.password?.message}</span>
+        <label htmlFor="password">
+          <input
+            type="password"
+            id="password"
+            placeholder="Senha"
+            {...register("password")}
+          />
+        </label>
+        <span>{errors?.password?.message}</span>
 
-            <button type="submit" className="btnLogin">
-              Entrar
-            </button>
-            <p>
-              Ainda não tem cadastro?
-              <Link to={"/"}>Cadastre-se</Link>
-            </p>
-          </form>
-        </div>
-      </div>
-    </section>
+        <button type="submit" className="btnLogin">
+          Entrar
+        </button>
+        <p>
+          Ainda não tem cadastro?
+          <Link to={"/"}> Cadastre-se</Link>
+        </p>
+      </Form>
+    </Section>
   );
 };
 

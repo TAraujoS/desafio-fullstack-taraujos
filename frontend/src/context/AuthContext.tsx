@@ -15,10 +15,12 @@ export interface IAuthProviderProps {
 }
 
 export interface IUser {
+  id: string;
   name: string;
   email: string;
   password: string;
   phone: string;
+  contacts: [];
 }
 
 export interface IUserRegister {
@@ -36,6 +38,7 @@ export interface IUserLogin {
 
 interface IAuthContext {
   user: IUser;
+  setUser: React.Dispatch<React.SetStateAction<IUser>>;
   registerUser: (data: IUserRegister) => void;
   submitLogin: (data: IUserLogin) => void;
   logout: () => void;
@@ -67,7 +70,6 @@ const AuthProvider = ({ children }: IAuthProviderProps) => {
     api
       .post("/login", data)
       .then((response) => {
-        console.log(response);
         window.localStorage.setItem("@fullstack:token", response.data.token);
         toast.success("Login feito com sucesso!", { autoClose: 2000 });
         navigate("/dashboard", { replace: true });
@@ -103,7 +105,9 @@ const AuthProvider = ({ children }: IAuthProviderProps) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, registerUser, submitLogin, logout }}>
+    <AuthContext.Provider
+      value={{ user, setUser, registerUser, submitLogin, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );

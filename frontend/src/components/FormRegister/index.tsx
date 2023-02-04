@@ -5,6 +5,8 @@ import { registerSchema } from "../../schemas";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import Input from "../Input";
+import { Section } from "../../pages/Login/styles";
+import { Form, HeaderForm, LinkStyled } from "./styles";
 
 function FormRegister() {
   const { registerUser } = useAuth();
@@ -19,12 +21,12 @@ function FormRegister() {
   const onSubmit = handleSubmit(registerUser, onError);
 
   return (
-    <section>
-      <header>
-        <Link to={"/login"}>Voltar</Link>
-      </header>
+    <Section>
+      <HeaderForm>
+        <LinkStyled to={"/login"}>Voltar</LinkStyled>
+      </HeaderForm>
 
-      <form onSubmit={onSubmit}>
+      <Form onSubmit={onSubmit}>
         <Input
           type="text"
           id="name"
@@ -66,8 +68,8 @@ function FormRegister() {
           error={errors?.phone}
         />
         <button type="submit">Cadastrar</button>
-      </form>
-    </section>
+      </Form>
+    </Section>
   );
 }
 
