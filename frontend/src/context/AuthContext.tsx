@@ -93,8 +93,6 @@ const AuthProvider = ({ children }: IAuthProviderProps) => {
         .catch((error) => {
           console.log(error);
         });
-    } else {
-      navigate("/login");
     }
   }, [tokenUser]);
 

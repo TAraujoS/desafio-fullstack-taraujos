@@ -27,7 +27,7 @@ const UserProvider = ({ children }: IAuthProviderProps) => {
 
   const navigate = useNavigate();
 
-  async function loadUser(user: IUser) {
+  async function loadUser(token: string) {
     try {
       const response = await api.get(`/users/account`, {
         headers: {
@@ -42,8 +42,8 @@ const UserProvider = ({ children }: IAuthProviderProps) => {
   }
 
   useEffect(() => {
-    if (user != null) {
-      loadUser(user);
+    if (token != null) {
+      loadUser(token);
     }
   }, []);
 
@@ -57,7 +57,7 @@ const UserProvider = ({ children }: IAuthProviderProps) => {
       })
       .then((res) => {
         setUser(res.data);
-        loadUser(user!);
+        loadUser(token!);
         setModal(null);
 
         toast.success("Perfil atualizado com sucesso!");
