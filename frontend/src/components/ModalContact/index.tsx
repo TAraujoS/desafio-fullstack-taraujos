@@ -2,6 +2,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { IEditContact, useContacts } from "../../context/ContactContext";
 import { editUser } from "../../schemas";
+import EditForm from "./styles";
 
 const ModalContact = () => {
   const { setModal, contact, deleteContact, editContact } = useContacts();
@@ -20,7 +21,7 @@ const ModalContact = () => {
         <h3>Detalhes do Contato</h3>
         <button onClick={() => setModal(null)}>X</button>
       </section>
-      <form onSubmit={handleSubmit(editContact)}>
+      <EditForm onSubmit={handleSubmit(editContact)}>
         <label htmlFor="name">Nome</label>
         <input id="name" placeholder={contact.name} {...register("name")} />
 
@@ -33,7 +34,6 @@ const ModalContact = () => {
         />
         <label>Contato</label>
         <input id="phone" placeholder={contact.phone} {...register("phone")} />
-        <button type="submit">Salvar</button>
 
         <div className="btnDiv">
           <button type="submit">Salvar Contato</button>
@@ -41,7 +41,7 @@ const ModalContact = () => {
             Excluir
           </span>
         </div>
-      </form>
+      </EditForm>
     </>
   );
 };
