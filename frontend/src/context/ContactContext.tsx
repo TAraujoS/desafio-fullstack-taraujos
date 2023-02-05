@@ -92,6 +92,7 @@ const ContactProvider = ({ children }: IContactProviderProps) => {
       })
       .then((res) => {
         setContacts((oldList) => [res.data, ...oldList]);
+        loadContacts(user!);
         toast.success("Contato criado com sucesso!");
       })
       .catch((error) => console.log(error));
@@ -107,8 +108,9 @@ const ContactProvider = ({ children }: IContactProviderProps) => {
       })
       .then((res) => {
         loadContacts(user!);
-        toast.success("Alteração salva com sucesso!");
         setModal(null);
+
+        toast.success("Alteração salva com sucesso!");
       })
       .catch((error) => console.log(error));
   }

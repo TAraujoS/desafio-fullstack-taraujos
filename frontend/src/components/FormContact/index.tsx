@@ -17,7 +17,7 @@ const FormContact = () => {
 
   return (
     <Container>
-      <form onSubmit={() => onSubmit}>
+      <form onSubmit={() => onSubmit()}>
         <div>
           <label className="name">Nome</label>
           <input
@@ -25,6 +25,7 @@ const FormContact = () => {
             placeholder="Nome do contato"
             {...register("name")}
           />
+          <span>{errors.name?.message}</span>
         </div>
 
         <div>
@@ -34,6 +35,7 @@ const FormContact = () => {
             placeholder="Email do contato"
             {...register("email")}
           />
+          <span>{errors.email?.message}</span>
         </div>
 
         <div>
@@ -43,6 +45,7 @@ const FormContact = () => {
             placeholder="Número do contato"
             {...register("phone")}
           />
+          <span>{errors.phone?.message}</span>
         </div>
 
         <button type="submit">Adicionar Contato</button>
