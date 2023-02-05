@@ -12,6 +12,8 @@ export const Container = styled.section`
   border: 1px solid var(--color-graydark);
   border-radius: 8px;
   padding: 1rem;
+  min-width: 260px;
+  min-height: 185px;
 
   form {
     display: flex;

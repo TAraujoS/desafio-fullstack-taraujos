@@ -7,6 +7,7 @@ export const Header = styled.header`
   gap: 20px;
   border-bottom: 1px solid var(--grey-1);
   margin-bottom: 20px;
+  min-height: 125px;
 
   div {
     display: flex;
