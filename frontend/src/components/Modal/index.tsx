@@ -1,19 +1,18 @@
-import { useContext } from "react";
 import { useContacts } from "../../context/ContactContext";
 import ModalContact from "../ModalContact";
 import ModalUser from "../ModalUser";
 
-// import Container from "./styles";
+import Container from "./styles";
 
 const Modal = () => {
   const { modal } = useContacts();
 
   return (
-    <div>
+    <Container>
       <div className="modal">
         {modal === "user" ? <ModalUser /> : <ModalContact />}
       </div>
-    </div>
+    </Container>
   );
 };
 
