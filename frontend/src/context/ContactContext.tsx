@@ -21,7 +21,7 @@ export interface IContactContext {
   setContact: Dispatch<SetStateAction<IContact>>;
   modal: string | null;
   setModal: Dispatch<SetStateAction<string | null>>;
-  loadContacts: (user: IUser) => void;
+  loadContacts: (token: string) => void;
   newContact: (data: INewContact) => void;
   deleteContact: (id: string) => void;
   editContact: (data: IEditContact) => void;
@@ -62,7 +62,7 @@ const ContactProvider = ({ children }: IContactProviderProps) => {
   const [modal, setModal] = useState<string | null>(null);
   const token = localStorage.getItem("@fullstack:token");
 
-  async function loadContacts(user: IUser) {
+  async function loadContacts(token: string) {
     try {
       const response = await api.get(`/contacts/`, {
         headers: {
@@ -77,10 +77,10 @@ const ContactProvider = ({ children }: IContactProviderProps) => {
   }
 
   useEffect(() => {
-    if (user != null) {
-      loadContacts(user);
+    if (token != null) {
+      loadContacts(token);
     }
-  }, [user]);
+  }, [token]);
 
   function newContact(data: INewContact) {
     api
@@ -92,6 +92,7 @@ const ContactProvider = ({ children }: IContactProviderProps) => {
       })
       .then((res) => {
         setContacts((oldList) => [res.data, ...oldList]);
+        loadContacts(token!);
         toast.success("Contato criado com sucesso!");
       })
       .catch((error) => console.log(error));
@@ -106,9 +107,10 @@ const ContactProvider = ({ children }: IContactProviderProps) => {
         },
       })
       .then((res) => {
-        loadContacts(user!);
-        toast.success("Alteração salva com sucesso!");
+        loadContacts(token!);
         setModal(null);
+
+        toast.success("Alteração salva com sucesso!");
       })
       .catch((error) => console.log(error));
   }

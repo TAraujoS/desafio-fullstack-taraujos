@@ -5,6 +5,7 @@ import { useContacts } from "../../context/ContactContext";
 import { editUser } from "../../schemas";
 import { IEditUser, useUser } from "../../context/UserContext";
 import { useAuth } from "../../context/AuthContext";
+import ModalForm from "./styles";
 
 const ModalUser = () => {
   const { user } = useAuth();
@@ -23,7 +24,7 @@ const ModalUser = () => {
         <h3>Suas Informações</h3>
         <button onClick={() => setModal(null)}> X </button>
       </section>
-      <form onSubmit={handleSubmit(updateUser)}>
+      <ModalForm onSubmit={handleSubmit(updateUser)}>
         <label htmlFor="name">Nome</label>
         <div>
           <input id="name" {...register("name")} placeholder={user.name} />
@@ -41,7 +42,7 @@ const ModalUser = () => {
         </div>
 
         <button type="submit">Atualizar informações</button>
-      </form>
+      </ModalForm>
     </>
   );
 };

@@ -56,7 +56,6 @@ const AuthProvider = ({ children }: IAuthProviderProps) => {
     api
       .post("/users", data)
       .then((response) => {
-        console.log(response);
         toast.success("Cadastro realizado com sucesso!");
         navigate(`/login`);
       })
@@ -93,8 +92,6 @@ const AuthProvider = ({ children }: IAuthProviderProps) => {
         .catch((error) => {
           console.log(error);
         });
-    } else {
-      navigate("/login");
     }
   }, [tokenUser]);
 

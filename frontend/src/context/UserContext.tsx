@@ -27,6 +27,26 @@ const UserProvider = ({ children }: IAuthProviderProps) => {
 
   const navigate = useNavigate();
 
+  async function loadUser(token: string) {
+    try {
+      const response = await api.get(`/users/account`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setUser(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    if (token != null) {
+      loadUser(token);
+    }
+  }, []);
+
   const updateUser = (data: IEditUser) => {
     api
       .patch("/users/account", data, {
@@ -35,16 +55,15 @@ const UserProvider = ({ children }: IAuthProviderProps) => {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((response) => {
-        setUser(response.data);
+      .then((res) => {
+        setUser(res.data);
+        loadUser(token!);
         setModal(null);
 
         toast.success("Perfil atualizado com sucesso!");
       })
       .catch((error) => {
-        console.log(error.response?.data);
-
-        toast.error("Ops! Algo deu errado!");
+        console.log(error);
       });
   };
 
@@ -56,7 +75,7 @@ const UserProvider = ({ children }: IAuthProviderProps) => {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((response) => {
+      .then((res) => {
         setModal(null);
 
         toast.success("Conta deletada com sucesso!");
@@ -72,21 +91,6 @@ const UserProvider = ({ children }: IAuthProviderProps) => {
         toast.error("Ops! Algo deu errado!");
       });
   };
-
-  useEffect(() => {
-    async function loadUser() {
-      if (token) {
-        try {
-          api.defaults.headers.common.Authorization = `Bearer ${token}`;
-          const { data } = await api.get("/users/account");
-          setUser(data);
-        } catch (error) {
-          console.error(error);
-        }
-      }
-    }
-    loadUser();
-  }, [token]);
 
   return (
     <UserContext.Provider value={{ updateUser, deleteUser }}>
