@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import listContactService from "../../services/contact/listContact.service";
 
 const listContactController = async (req: Request, res: Response) => {
-  const id: string = req.params.id;
+  const id: string = req.user.id;
 
   const contact = await listContactService(id);
 
