@@ -7,8 +7,8 @@ export const AppDataSource = new DataSource(
     ? {
         type: "sqlite",
         database: ":memory:",
+        entities: ["src/entities/**/*.ts"],
         synchronize: true,
-        entities: ["src/entities/*.ts"],
       }
     : {
         type: "postgres",
