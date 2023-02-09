@@ -81,20 +81,6 @@ const AuthProvider = ({ children }: IAuthProviderProps) => {
       });
   };
 
-  useEffect(() => {
-    if (tokenUser) {
-      api.defaults.headers.common.Authorization = `Bearer ${tokenUser}`;
-      api
-        .get(`/users/account`)
-        .then((response) => {
-          setUser(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-  }, [tokenUser]);
-
   const logout = (): void => {
     localStorage.clear();
     navigate("/login");

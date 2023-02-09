@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.section`
   display: flex;
   height: 40%;
-  width: 60%;
+  width: 90%;
   gap: 20px;
   align-items: center;
   justify-content: center;
@@ -14,6 +14,8 @@ export const Container = styled.section`
   padding: 1rem;
   min-width: 260px;
   min-height: 185px;
+  max-width: 350px;
+  max-height: 280px;
 
   form {
     display: flex;
@@ -21,19 +23,22 @@ export const Container = styled.section`
     align-items: center;
     justify-content: space-between;
     height: 100%;
+    width: 100%;
 
     div {
       display: flex;
       align-items: center;
-      gap: 20px;
+      gap: 10px;
       height: 20%;
+      width: 100%;
       label {
-        width: 50px;
+        width: 40%;
         font-size: 14px;
         font-weight: 600;
         color: var(--grey-1);
       }
       input {
+        width: 95%;
         height: 100%;
         padding-left: 10px;
         cursor: pointer;

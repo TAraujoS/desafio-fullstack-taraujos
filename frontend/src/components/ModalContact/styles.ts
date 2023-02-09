@@ -38,7 +38,7 @@ const EditForm = styled.form`
     border-radius: 4px;
     font-style: normal;
     font-weight: 500;
-    font-size: 16px;
+    font-size: 14px;
     color: var(--color-white);
     background-color: var(--color-graydark);
     cursor: pointer;

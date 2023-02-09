@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.section`
   margin-top: 20px;
   border-top: 1px solid var(--grey-1);
-
+  width: 85%;
   h3 {
     margin-top: 10px;
   }
@@ -40,6 +40,10 @@ export const Container = styled.section`
         font-weight: 600;
         font-size: 14px;
         color: var(--grey-2);
+
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
       }
 
       :hover {
