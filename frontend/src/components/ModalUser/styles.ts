@@ -13,7 +13,6 @@ const ModalForm = styled.form`
     display: flex;
     align-items: center;
     padding: 2px;
-    /* margin-bottom: 1.3rem; */
     background-color: var(--color-grayinput);
     border: 1px solid var(--color-grayinput);
     border-radius: 4px;
@@ -59,6 +58,21 @@ const ModalForm = styled.form`
   }
   span {
     color: var(--color-whitetext);
+  }
+
+  .delete {
+    display: flex;
+    height: 30px;
+    align-items: center;
+    justify-content: center;
+    background-color: #e17a7a;
+    border-radius: 4px;
+    cursor: pointer;
+
+    :hover {
+      border: 1px solid red;
+      background-color: var(--color-grayform);
+    }
   }
 `;
 

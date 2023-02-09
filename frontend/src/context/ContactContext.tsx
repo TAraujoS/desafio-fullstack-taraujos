@@ -95,7 +95,9 @@ const ContactProvider = ({ children }: IContactProviderProps) => {
       .then((res) => {
         setContacts((oldList) => [res.data, ...oldList]);
         loadContacts(token!);
-        toast.success("Contato criado com sucesso!");
+        toast.success("Contato criado com sucesso!", {
+          pauseOnHover: false,
+        });
       })
       .catch((error) => console.log(error));
   }
@@ -112,7 +114,9 @@ const ContactProvider = ({ children }: IContactProviderProps) => {
         loadContacts(token!);
         setModal(null);
 
-        toast.success("Alteração salva com sucesso!");
+        toast.success("Alteração salva com sucesso!", {
+          pauseOnHover: false,
+        });
       })
       .catch((error) => console.log(error));
   }
@@ -128,7 +132,9 @@ const ContactProvider = ({ children }: IContactProviderProps) => {
       .then((res) => {
         const newContactList = contacts.filter((contact) => contact.id !== id);
         setContacts(newContactList);
-        toast.success("Contato deletado com sucesso!");
+        toast.success("Contato deletado com sucesso!", {
+          pauseOnHover: false,
+        });
         setModal(null);
       })
       .catch((error) => console.log(error));

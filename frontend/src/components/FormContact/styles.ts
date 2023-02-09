@@ -24,7 +24,7 @@ export const Container = styled.section`
     justify-content: space-between;
     height: 100%;
     width: 100%;
-
+    gap: 10px;
     div {
       display: flex;
       align-items: center;
@@ -39,7 +39,7 @@ export const Container = styled.section`
       }
       input {
         width: 95%;
-        height: 100%;
+        height: 40px;
         padding-left: 10px;
         cursor: pointer;
         border-radius: 8px;

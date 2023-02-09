@@ -5,7 +5,6 @@ import { Container } from "./styles";
 const ListContact = () => {
   const { contacts, setContact } = useContacts();
   const { setModal } = useUser();
-  console.log(contacts);
 
   const handleClick = (contact: IContact) => {
     setModal("edit");
@@ -15,6 +14,7 @@ const ListContact = () => {
   return (
     <Container>
       <h3>Seus contatos</h3>
+      <p>Para editar, basta clicar no contato</p>
       <ul className="contactTitle">
         <li>Nome</li>
         <li>Email</li>
@@ -22,7 +22,9 @@ const ListContact = () => {
       </ul>
       {contacts?.length === 0 ? (
         <ul>
-          <li>Sem contatos até o momento. Vamos cadastrar?</li>
+          <li className="noContact">
+            Sem contatos até o momento. Vamos cadastrar?
+          </li>
         </ul>
       ) : (
         <ul className="contactData">

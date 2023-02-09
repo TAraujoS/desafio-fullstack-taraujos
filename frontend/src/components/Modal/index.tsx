@@ -1,4 +1,3 @@
-import { useContacts } from "../../context/ContactContext";
 import { useUser } from "../../context/UserContext";
 import ModalContact from "../ModalContact";
 import ModalUser from "../ModalUser";

@@ -1,10 +1,4 @@
-import {
-  createContext,
-  ReactNode,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { createContext, ReactNode, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import React from "react";
@@ -54,26 +48,32 @@ const AuthProvider = ({ children }: IAuthProviderProps) => {
   const registerUser = (data: IUserRegister) => {
     api
       .post("/users", data)
-      .then((response) => {
-        toast.success("Cadastro realizado com sucesso!");
+      .then((res) => {
+        toast.success("Cadastro realizado com sucesso!", {
+          pauseOnHover: false,
+          autoClose: 2000,
+        });
         navigate(`/login`);
       })
-      .catch((err) => {
-        toast.error("Ops! Algo deu errado");
-        console.log(err);
+      .catch((error) => {
+        toast.error("Ops! Algo deu errado", {
+          pauseOnHover: false,
+        });
+        console.log(error);
       });
   };
 
   const submitLogin = (data: IUserLogin) => {
     api
       .post("/login", data)
-      .then((response) => {
-        window.localStorage.setItem("@fullstack:token", response.data.token);
+      .then((res) => {
+        window.localStorage.setItem("@fullstack:token", res.data.token);
         toast.success("Login feito com sucesso!", { autoClose: 2000 });
         navigate("/dashboard", { replace: true });
       })
       .catch((error) => {
         toast.error("Email ou senha inválidos", {
+          pauseOnHover: false,
           autoClose: 2000,
         });
         console.log(error);
@@ -83,7 +83,10 @@ const AuthProvider = ({ children }: IAuthProviderProps) => {
   const logout = (): void => {
     localStorage.clear();
     navigate("/login");
-    toast.success("Logout efetuado com sucesso!");
+    toast.success("Logout efetuado com sucesso!", {
+      pauseOnHover: false,
+      autoClose: 2000,
+    });
   };
 
   return (

@@ -41,8 +41,10 @@ const ModalUser = () => {
         </div>
 
         <button type="submit">Atualizar informações</button>
+        <span className="delete" onClick={deleteUser}>
+          Deletar Conta
+        </span>
       </ModalForm>
-      <button onClick={deleteUser}>Excluir Contato</button>
     </>
   );
 };
