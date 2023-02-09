@@ -96,8 +96,8 @@ const UserProvider = ({ children }: IAuthProviderProps) => {
           pauseOnHover: false,
           autoClose: 2000,
         });
-
-        navigate("/", { replace: true });
+        localStorage.clear();
+        navigate("/login", { replace: true });
       })
       .catch((error) => {
         console.log(error);

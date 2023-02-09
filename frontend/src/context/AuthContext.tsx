@@ -68,7 +68,10 @@ const AuthProvider = ({ children }: IAuthProviderProps) => {
       .post("/login", data)
       .then((res) => {
         window.localStorage.setItem("@fullstack:token", res.data.token);
-        toast.success("Login feito com sucesso!", { autoClose: 2000 });
+        toast.success("Login feito com sucesso!", {
+          autoClose: 2000,
+          pauseOnHover: false,
+        });
         navigate("/dashboard", { replace: true });
       })
       .catch((error) => {
