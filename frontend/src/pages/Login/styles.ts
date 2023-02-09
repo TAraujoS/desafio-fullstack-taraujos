@@ -35,7 +35,7 @@ export const Form = styled.form`
   height: 45vh;
   width: 350px;
   min-height: 280px;
-  max-height: 550px;
+  max-height: 300px;
   padding: 30px 25px;
   margin-bottom: 50px;
   display: flex;

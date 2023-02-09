@@ -23,7 +23,7 @@ const GlobalStyle = createGlobalStyle`
     }
     body {
         width: 100vw;
-        height: 100vh;
+        min-height: 100vh;
         font-family: 'Inter', sans-serif;
         display: flex;
         align-items: center;

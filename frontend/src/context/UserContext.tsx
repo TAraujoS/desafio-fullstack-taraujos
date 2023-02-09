@@ -1,15 +1,22 @@
-import { useContext, createContext, useEffect } from "react";
-
+import {
+  useContext,
+  createContext,
+  useEffect,
+  Dispatch,
+  SetStateAction,
+  useState,
+} from "react";
 import api from "../services/api";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { IAuthProviderProps, IUser, useAuth } from "./AuthContext";
-import { useContacts } from "./ContactContext";
+import { IAuthProviderProps, useAuth } from "./AuthContext";
 
 interface IUserContext {
   updateUser: (data: IEditUser) => void;
   deleteUser: () => void;
+  modal: string | null;
+  setModal: Dispatch<SetStateAction<string | null>>;
 }
 
 export interface IEditUser {
@@ -21,7 +28,7 @@ export interface IEditUser {
 export const UserContext = createContext({} as IUserContext);
 
 const UserProvider = ({ children }: IAuthProviderProps) => {
-  const { setModal } = useContacts();
+  const [modal, setModal] = useState<string | null>(null);
   const { user, setUser } = useAuth();
   const token = localStorage.getItem("@fullstack:token");
 
@@ -42,10 +49,12 @@ const UserProvider = ({ children }: IAuthProviderProps) => {
   }
 
   useEffect(() => {
-    if (token != null) {
+    if (token) {
       loadUser(token);
+    } else {
+      navigate("/login");
     }
-  }, []);
+  }, [token]);
 
   const updateUser = (data: IEditUser) => {
     api
@@ -56,13 +65,19 @@ const UserProvider = ({ children }: IAuthProviderProps) => {
         },
       })
       .then((res) => {
-        setUser(res.data);
-        loadUser(token!);
         setModal(null);
+        loadUser(token!);
 
-        toast.success("Perfil atualizado com sucesso!");
+        toast.success("Perfil atualizado com sucesso!", {
+          pauseOnHover: false,
+          autoClose: 2000,
+        });
       })
       .catch((error) => {
+        toast.error("Ocorreu um erro ao editar seu perfil.", {
+          pauseOnHover: false,
+          autoClose: 2000,
+        });
         console.log(error);
       });
   };
@@ -77,23 +92,25 @@ const UserProvider = ({ children }: IAuthProviderProps) => {
       })
       .then((res) => {
         setModal(null);
+        toast.success("Conta deletada com sucesso!", {
+          pauseOnHover: false,
+          autoClose: 2000,
+        });
 
-        toast.success("Conta deletada com sucesso!");
-
-        setTimeout(() => {
-          navigate("/", { replace: true });
-          localStorage.clear();
-        }, 3000);
+        navigate("/", { replace: true });
       })
       .catch((error) => {
-        console.log(error.response?.data);
+        console.log(error);
 
-        toast.error("Ops! Algo deu errado!");
+        toast.error("Ops! Algo deu errado!", {
+          pauseOnHover: false,
+          autoClose: 2000,
+        });
       });
   };
 
   return (
-    <UserContext.Provider value={{ updateUser, deleteUser }}>
+    <UserContext.Provider value={{ updateUser, deleteUser, modal, setModal }}>
       {children}
     </UserContext.Provider>
   );
