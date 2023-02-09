@@ -6,12 +6,10 @@ import { editUser } from "../../schemas";
 import { IEditUser, useUser } from "../../context/UserContext";
 import { useAuth } from "../../context/AuthContext";
 import ModalForm from "./styles";
-import { update } from "cypress/types/lodash";
 
 const ModalUser = () => {
   const { user } = useAuth();
-  const { setModal } = useContacts();
-  const { updateUser, deleteUser } = useUser();
+  const { updateUser, deleteUser, setModal } = useUser();
 
   const {
     register,
@@ -19,18 +17,13 @@ const ModalUser = () => {
     formState: { errors },
   } = useForm<IEditUser>({ resolver: yupResolver(editUser) });
 
-  const onSubmit = (user: IEditUser) => {
-    updateUser(user);
-    setModal(null);
-  };
-
   return (
     <>
       <section>
         <h3>Suas Informações</h3>
         <button onClick={() => setModal(null)}> X </button>
       </section>
-      <ModalForm onSubmit={() => onSubmit(user)}>
+      <ModalForm onSubmit={handleSubmit(updateUser)}>
         <label htmlFor="name">Nome</label>
         <div>
           <input id="name" {...register("name")} placeholder={user.name} />
@@ -48,10 +41,8 @@ const ModalUser = () => {
         </div>
 
         <button type="submit">Atualizar informações</button>
-        <button type="submit" onClick={() => deleteUser()}>
-          Excluir conta
-        </button>
       </ModalForm>
+      <button onClick={deleteUser}>Excluir Contato</button>
     </>
   );
 };

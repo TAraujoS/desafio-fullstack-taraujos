@@ -7,8 +7,9 @@ import {
 } from "react";
 import { createContext, useState } from "react";
 import api from "../services/api";
-import { IUser, useAuth } from "./AuthContext";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { useUser } from "./UserContext";
 
 export interface IContactProviderProps {
   children: ReactNode;
@@ -19,8 +20,6 @@ export interface IContactContext {
   setContacts: Dispatch<SetStateAction<IContact[]>>;
   contact: IContact;
   setContact: Dispatch<SetStateAction<IContact>>;
-  modal: string | null;
-  setModal: Dispatch<SetStateAction<string | null>>;
   loadContacts: (token: string) => void;
   newContact: (data: INewContact) => void;
   deleteContact: (id: string) => void;
@@ -56,11 +55,12 @@ export const ContactsContext = createContext<IContactContext>(
 );
 
 const ContactProvider = ({ children }: IContactProviderProps) => {
-  const { user } = useAuth();
   const [contacts, setContacts] = useState<IContact[]>([]);
   const [contact, setContact] = useState<IContact>({} as IContact);
-  const [modal, setModal] = useState<string | null>(null);
+  const { setModal } = useUser();
   const token = localStorage.getItem("@fullstack:token");
+
+  const navigate = useNavigate();
 
   async function loadContacts(token: string) {
     try {
@@ -77,8 +77,10 @@ const ContactProvider = ({ children }: IContactProviderProps) => {
   }
 
   useEffect(() => {
-    if (token != null) {
+    if (token) {
       loadContacts(token);
+    } else {
+      navigate("/login");
     }
   }, [token]);
 
@@ -139,8 +141,6 @@ const ContactProvider = ({ children }: IContactProviderProps) => {
         setContacts,
         contact,
         setContact,
-        modal,
-        setModal,
         loadContacts,
         newContact,
         deleteContact,

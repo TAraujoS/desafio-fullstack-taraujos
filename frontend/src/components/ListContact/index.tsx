@@ -1,8 +1,10 @@
 import { IContact, useContacts } from "../../context/ContactContext";
+import { useUser } from "../../context/UserContext";
 import { Container } from "./styles";
 
 const ListContact = () => {
-  const { setModal, contacts, setContact } = useContacts();
+  const { contacts, setContact } = useContacts();
+  const { setModal } = useUser();
   console.log(contacts);
 
   const handleClick = (contact: IContact) => {

@@ -48,7 +48,6 @@ export const AuthContext = createContext({} as IAuthContext);
 
 const AuthProvider = ({ children }: IAuthProviderProps) => {
   const [user, setUser] = useState<IUser>({} as IUser);
-  const tokenUser = localStorage.getItem("@fullstack:token");
 
   const navigate = useNavigate();
 

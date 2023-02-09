@@ -1,11 +1,11 @@
 import { BiLogOut } from "react-icons/bi";
 import { useAuth } from "../../context/AuthContext";
-import { useContacts } from "../../context/ContactContext";
+import { useUser } from "../../context/UserContext";
 import { Header } from "./styles";
 
 const DashHeader = () => {
   const { logout, user } = useAuth();
-  const { setModal } = useContacts();
+  const { setModal } = useUser();
 
   return (
     <Header>

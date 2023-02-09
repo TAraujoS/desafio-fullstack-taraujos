@@ -4,7 +4,6 @@ import { BiErrorCircle } from "react-icons/bi";
 import { toast } from "react-toastify";
 import { INewContact, useContacts } from "../../context/ContactContext";
 import { registerContact } from "../../schemas";
-import { Error } from "../Input/styles";
 import { Container } from "./styles";
 
 const FormContact = () => {
