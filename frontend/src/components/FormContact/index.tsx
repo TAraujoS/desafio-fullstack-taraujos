@@ -1,7 +1,10 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
+import { BiErrorCircle } from "react-icons/bi";
+import { toast } from "react-toastify";
 import { INewContact, useContacts } from "../../context/ContactContext";
 import { registerContact } from "../../schemas";
+import { Error } from "../Input/styles";
 import { Container } from "./styles";
 
 const FormContact = () => {
@@ -13,11 +16,12 @@ const FormContact = () => {
     formState: { errors },
   } = useForm<INewContact>({ resolver: yupResolver(registerContact) });
 
-  const onSubmit = handleSubmit(newContact);
+  const onError = () => toast.error("Preencha todos os campos");
+  const onSubmit = handleSubmit(newContact, onError);
 
   return (
     <Container>
-      <form onSubmit={() => onSubmit()}>
+      <form onSubmit={onSubmit}>
         <div>
           <label className="name">Nome</label>
           <input
@@ -25,7 +29,7 @@ const FormContact = () => {
             placeholder="Nome do contato"
             {...register("name")}
           />
-          <span>{errors.name?.message}</span>
+          {errors?.name && <BiErrorCircle />}
         </div>
 
         <div>
@@ -35,7 +39,7 @@ const FormContact = () => {
             placeholder="Email do contato"
             {...register("email")}
           />
-          <span>{errors.email?.message}</span>
+          {errors?.email && <BiErrorCircle />}
         </div>
 
         <div>
@@ -45,7 +49,7 @@ const FormContact = () => {
             placeholder="Número do contato"
             {...register("phone")}
           />
-          <span>{errors.phone?.message}</span>
+          {errors?.phone && <BiErrorCircle />}
         </div>
 
         <button type="submit">Adicionar Contato</button>

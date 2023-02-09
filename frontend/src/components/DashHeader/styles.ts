@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Header = styled.header`
   display: flex;
   flex-direction: column;
-  height: 20%;
+  height: 15%;
   gap: 20px;
   border-bottom: 1px solid var(--grey-1);
   margin-bottom: 20px;

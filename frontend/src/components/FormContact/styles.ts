@@ -48,6 +48,10 @@ export const Container = styled.section`
           border: 1px solid var(--grey-1);
         }
       }
+
+      svg {
+        color: #f10;
+      }
     }
 
     button {
