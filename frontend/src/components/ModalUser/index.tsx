@@ -9,8 +9,7 @@ import ModalForm from "./styles";
 
 const ModalUser = () => {
   const { user } = useAuth();
-  const { setModal } = useContacts();
-  const { updateUser } = useUser();
+  const { updateUser, deleteUser, setModal } = useUser();
 
   const {
     register,
@@ -42,6 +41,9 @@ const ModalUser = () => {
         </div>
 
         <button type="submit">Atualizar informações</button>
+        <span className="delete" onClick={deleteUser}>
+          Deletar Conta
+        </span>
       </ModalForm>
     </>
   );

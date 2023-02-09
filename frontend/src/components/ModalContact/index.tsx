@@ -1,11 +1,13 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { IEditContact, useContacts } from "../../context/ContactContext";
+import { useUser } from "../../context/UserContext";
 import { editUser } from "../../schemas";
 import EditForm from "./styles";
 
 const ModalContact = () => {
-  const { setModal, contact, deleteContact, editContact } = useContacts();
+  const { contact, deleteContact, editContact } = useContacts();
+  const { setModal } = useUser();
 
   const {
     register,

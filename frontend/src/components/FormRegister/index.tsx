@@ -3,7 +3,6 @@ import { IUserRegister, useAuth } from "../../context/AuthContext";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { registerSchema } from "../../schemas";
 import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
 import Input from "../Input";
 import { Section } from "../../pages/Login/styles";
 import { Form, HeaderForm, LinkStyled } from "./styles";

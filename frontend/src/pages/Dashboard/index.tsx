@@ -3,17 +3,21 @@ import Modal from "../../components/Modal";
 import DashHeader from "../../components/DashHeader";
 import FormContact from "../../components/FormContact";
 import ListContact from "../../components/ListContact";
+import Main from "./styles";
+import { useAuth } from "../../context/AuthContext";
+import { useUser } from "../../context/UserContext";
 
 const Dashboard = () => {
-  const { modal } = useContacts();
-
+  const { modal } = useUser();
+  const { user } = useAuth();
+  console.log(user);
   return (
-    <>
+    <Main>
       {modal && <Modal />}
       <DashHeader />
       <FormContact />
       <ListContact />
-    </>
+    </Main>
   );
 };
 

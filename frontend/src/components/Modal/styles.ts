@@ -6,11 +6,11 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30%;
+  width: 70%;
   height: 75vh;
+  max-width: 300px;
   .modal {
     width: 100%;
-    max-width: 300px;
     position: relative;
     border-radius: 0.25rem;
     overflow: hidden;
